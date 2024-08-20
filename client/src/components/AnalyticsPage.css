@@ -1,0 +1,28 @@
+.analytics-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .analytics-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .charts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .chart {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chart h2 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
