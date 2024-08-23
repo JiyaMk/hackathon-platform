@@ -12,11 +12,7 @@ const ChooseUser = () => {
         <h2>Judge</h2>
        <Link to="/judge-signIn"> <button >Login as Judges</button></Link>
      </div>
-     <div>
-        <h2>Teams</h2>
-        <Link to="/teams-signIn" >  <button >Login as Teams</button></Link>
-
-     </div>
+    
     </div>
   )
 }

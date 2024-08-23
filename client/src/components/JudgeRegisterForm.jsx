@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-const TeamSignin = () => {
+const JudgeRegisterForm = () => {
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
-    const handleSignIn=()=>{
-        console.log('Team Signin',{email,password});
-    }
+    const handleRegister=()=>{
+        console.log('Admin Registration',{email,password});
+    };
   return (
     <div className='login-container'>
     <div className='login-form-position'>
     <Form>
-      <h1>Team Sign In</h1>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
@@ -24,11 +23,8 @@ const TeamSignin = () => {
         <Form.Label>Password</Form.Label>
         <Form.Control type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group>
-      <Button  to="/student/dashboard" style={{backgroundColor:'#ffa500' , borderRadius:'2px', border: 'white' }} type="submit" onClick={handleSignIn}>
-        Sign In
+      <Button variant="primary" type='button' onClick={handleRegister}>
+        Register
       </Button>
     </Form>
     </div>
@@ -36,4 +32,4 @@ const TeamSignin = () => {
   )
 }
 
-export default TeamSignin;
+export default JudgeRegisterForm;
