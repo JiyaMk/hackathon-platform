@@ -1,5 +1,5 @@
 import React from 'react'
-import JudgeRegisterForm from '.JudgeRegisterForm.jsx';
+import JudgeRegisterForm from './JudgeRegisterForm.jsx';
 const JudgeRegister = () => {
   return (
     <div>

@@ -1,13 +1,37 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
+import axios from 'axios'; 
+import { useNavigate } from 'react-router-dom';
+
 const JudgeSignin = () => {
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
-    const handleSignIn=()=>{
-        console.log('Judge Signin',{email,password});
-    }
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const handleSignIn = async (event) => {
+      event.preventDefault();
+      setLoading(true);
+      setError('');
+
+      try {
+          const response = await axios.post('http://localhost:4000/auth/judge/login', {
+              email,
+              password,
+          });
+          console.log(response.data.message);
+          if (response.data.message === 'Login successful') {
+              alert('Sign in successful!');
+              navigate('/judge-dashboard'); 
+          }
+          if(response.data.message ==='Judge not approved yet'){
+            alert('Judge not approved yet');
+          }
+      } catch (error) {
+        setError(error.response && error.response.data ? error.response.data.message: 'Failed to signin');
+      }
+  };
   return (
     <div className='login-container'>
     <div className='login-form-position'>
@@ -26,11 +50,11 @@ const JudgeSignin = () => {
         <Form.Control type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
       </Form.Group>
       
-      <Link to='/judge-dashboard'>
+      
       <Button style={{backgroundColor:'#ffa500' , borderRadius:'2px', border: 'white' }} type="submit" onClick={handleSignIn}>
         Sign In
       </Button>
-      </Link>
+      {error && <p>{error}</p>}
     </Form>
     </div>
     </div>
