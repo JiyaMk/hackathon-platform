@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addScore, lockScore, submitScores } from '../actions/scoreActions';
 import Leaderboard from './Leaderboard';
+import './JudgeDashboard.css';
 
 const JudgeDashboard = () => {
   const teams = useSelector((state) => state.teams.teams);
@@ -42,9 +43,12 @@ const JudgeDashboard = () => {
   };
 
   return (
-    <div>
+    <>
+    <div className='table-container'>
+      
       <h1>Judge Dashboard</h1>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+      <div>
+      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '1rem' }}>
         <thead>
           <tr>
             <th style={{ border: '1px solid black' }}>Team ID</th>
@@ -87,13 +91,15 @@ const JudgeDashboard = () => {
           ))}
         </tbody>
       </table>
-      
+      </div>
+      </div>
+      <div className="button-container">
       <button onClick={handleSubmitScores} disabled={submitted || !teams.every(team => lockedScores[team.id])}>
         {submitted ? 'Scores Submitted' : 'Submit All Scores'}
       </button>
-
+      </div>
       {submitted && <Leaderboard />} 
-    </div>
+   </>
   );
 };
 

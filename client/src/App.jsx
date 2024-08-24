@@ -11,6 +11,7 @@ import AnalyticsPage from './components/AnalyticsPage';
 import TeamList from './components/TeamList';
 import Teams from './components/Teams';
 import store from './store';
+import ValidateJudge from './components/ValidateJudge';
 
 // function App() {
   const App = () => {
@@ -35,6 +36,7 @@ import store from './store';
             <Route path="/analytics-page" element={<AnalyticsPage/>} />
             <Route path="/teams-list" element={<TeamList/>} />
             <Route path="/teams" element={<Teams/>} />
+            <Route path="/validate-judge" element={<ValidateJudge/>} />
             {/* Redirect from any other routes to home */}
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

@@ -39,7 +39,7 @@ const Sidebar = () => {
           <FontAwesomeIcon icon={faTachometerAlt} className="nav-icon" /> Teams Score
         </CNavItem>
 
-        <CNavItem href="https://coreui.io">
+        <CNavItem href="/validate-judge">
           <FontAwesomeIcon icon={faCloudDownloadAlt} className="nav-icon" /> Validate Judge
         </CNavItem>
         <CNavItem href="https://coreui.io/pro/">
