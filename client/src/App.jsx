@@ -7,6 +7,9 @@ import JudgeSignin from './components/JudgeSignin';
 import AdminDashboard from './components/AdminDashboard';
 import JudgeDashboard from './components/JudgeDashboard';
 import { Provider } from 'react-redux';
+import AnalyticsPage from './components/AnalyticsPage';
+import TeamList from './components/TeamList';
+import Teams from './components/Teams';
 import store from './store';
 
 // function App() {
@@ -28,7 +31,10 @@ import store from './store';
             {/* Dashboard Pages */}
             <Route path="/admin-dashboard" element={<AdminDashboard />} />
             <Route path="/judge-dashboard" element={<JudgeDashboard />} />
-
+            
+            <Route path="/analytics-page" element={<AnalyticsPage/>} />
+            <Route path="/teams-list" element={<TeamList/>} />
+            <Route path="/teams" element={<Teams/>} />
             {/* Redirect from any other routes to home */}
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

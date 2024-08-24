@@ -1,0 +1,49 @@
+.leaderboard-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .leaderboard-title {
+    margin-bottom: 20px;
+  }
+  
+  .leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .leaderboard-table th, .leaderboard-table td {
+    border: 1px solid grey;
+    padding: 10px;
+  }
+  
+  .parameter-breakdown {
+    margin: 40px;
+  }
+  
+  .pie-chart-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 2fr));
+    gap: 5rem;
+    justify-content: center; 
+    margin: 0 auto;
+   
+  }
+  
+  .pie-chart-item {
+  box-shadow: 0 0 15px rgba(247, 249, 247, 0.905); /* Glowing effect */
+  border-radius: 8px;
+  padding: 40px;
+  display: flex; 
+  flex-direction: column;
+  align-items: center; /* Center contents horizontally */
+  justify-content: center;
+  }
+  .pie-chart-item:hover {
+    box-shadow: 0 0 15px rgba(247, 249, 247, 0.905); /* Brighter glow on hover */
+  }
+  .bar-chart-container {
+    margin: 4rem;
+  }
+  

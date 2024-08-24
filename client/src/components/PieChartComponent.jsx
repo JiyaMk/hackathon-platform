@@ -7,7 +7,7 @@ const PieChartComponent = ({ data, parameterIndex, parameterName }) => {
     value: team.scores[parameterIndex],
   }));
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']; // Customize colors as needed
+  const COLORS = ['#91d4a5', '#49d3d3', '#d1e7c2', '#b4d4b6']; 
 
   return (
     <PieChart width={400} height={400}>

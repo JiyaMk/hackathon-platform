@@ -2,31 +2,75 @@ import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Legend } from 'chart.js';
 
-// Register required components
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 const BarChart = ({ teams }) => {
-  // Calculate the average score for each team
+ 
   const calculateAverageScore = (scores) => {
     return scores.reduce((acc, score) => acc + score, 0) / scores.length;
   };
 
-  // Data for the bar chart
+ 
   const chartData = {
     labels: teams.map(team => team.name),
     datasets: [{
       label: 'Average Score',
       data: teams.map(team => calculateAverageScore(team.scores)),
-      backgroundColor: '#42A5F5', // Customize color as needed
-      borderColor: '#1E88E5',
+      backgroundColor: '#91d4a5', 
+      borderColor: 'white',
       borderWidth: 1
     }],
   };
 
+  
+  const chartOptions = {
+    plugins: {
+      legend: {
+        labels: {
+          color: '#fff', 
+        },
+      },
+      tooltip: {
+        callbacks: {
+          labelColor: function() {
+            return {
+              borderColor: '#fff',
+              backgroundColor: '#fff'
+            };
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: {
+          color: '#grey', 
+        },
+        ticks: {
+          color: '#fff',
+        },
+      },
+      y: {
+        grid: {
+          color: 'grey', 
+        },
+        ticks: {
+          color: '#fff', 
+        },
+      }
+    },
+    elements: {
+      bar: {
+        borderRadius: 5,
+      }
+    }
+  };
+
   return (
-    <div>
-      <h2>Average Score by Team</h2>
-      <Bar data={chartData} />
+    <div >
+      <h2 style={{margin:'5rem'}}>Average Score by Team</h2>
+      <Bar data={chartData} options={chartOptions} />
     </div>
   );
 };
