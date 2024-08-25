@@ -4,6 +4,7 @@ import Home from './components/Home';
 import ChooseUser from './components/ChooseUser';
 import AdminSignin from './components/AdminSignin';
 import JudgeSignin from './components/JudgeSignin';
+import JudgeRegister from './components/JudgeRegister';
 import AdminDashboard from './components/AdminDashboard';
 import JudgeDashboard from './components/JudgeDashboard';
 import { Provider } from 'react-redux';
@@ -27,6 +28,7 @@ import ValidateJudge from './components/ValidateJudge';
 
             {/* Sign-In Pages */}
             <Route path="/admin-signin" element={<AdminSignin />} />
+            <Route path="/judge-register" element={<JudgeRegister />} />
             <Route path="/judge-signin" element={<JudgeSignin />} />
 
             {/* Dashboard Pages */}
