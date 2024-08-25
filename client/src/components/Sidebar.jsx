@@ -42,7 +42,7 @@ const Sidebar = () => {
         <CNavItem href="/validate-judge">
           <FontAwesomeIcon icon={faCloudDownloadAlt} className="nav-icon" /> Validate Judge
         </CNavItem>
-        <CNavItem href="https://coreui.io/pro/">
+        <CNavItem href="Home">
           <FontAwesomeIcon icon={faLayerGroup} className="nav-icon" /> Logout
         </CNavItem>
       </CSidebarNav>

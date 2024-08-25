@@ -7,7 +7,7 @@ const ValidateJudge = () => {
     <div className='main-container'>
        <Sidebar/>
        <div className='analytics-container'>
-        
+        <h1 style={{textAlign:'center'}}>Validate Judge</h1>
       <JudgeList Name='Jiya' email='Jiya@gmail.com'/>
       <JudgeList Name='Jiya' email='Jiya@gmail.com' />
       <JudgeList Name='Jiya' email='Jiya@gmail.com' />
