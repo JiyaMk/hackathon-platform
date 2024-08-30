@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addScore, lockScore, submitScores } from '../actions/scoreActions';
 import Leaderboard from './Leaderboard';
 import './JudgeDashboard.css';
+import JudgeSidebar from './judgeSidebar';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const JudgeDashboard = () => {
   const teams = useSelector((state) => state.teams.teams);
@@ -39,35 +42,40 @@ const JudgeDashboard = () => {
 
   const handleSubmitScores = () => {
     setSubmitted(true);
+    toast.success("Scores uploaded successfully!");
     dispatch(submitScores()); 
+   
   };
 
   return (
     <>
+    <div className='main-container'>
+      <JudgeSidebar/>
+      <div style={{width:'100%',padding:'4rem'}}>
     <div className='table-container'>
       
-      <h1>Judge Dashboard</h1>
+      <h1 style={{textAlign:'center',color:'whitesmoke'}}>Judge Dashboard</h1>
       <div>
       <table style={{ width: '100%', borderCollapse: 'collapse', margin: '1rem' }}>
         <thead>
           <tr>
-            <th style={{ border: '1px solid black' }}>Team ID</th>
-            <th style={{ border: '1px solid black' }}>Team Name</th>
-            <th style={{ border: '1px solid black' }}>Parameter 1</th>
-            <th style={{ border: '1px solid black' }}>Parameter 2</th>
-            <th style={{ border: '1px solid black' }}>Parameter 3</th>
-            <th style={{ border: '1px solid black' }}>Parameter 4</th>
-            <th style={{ border: '1px solid black' }}>Parameter 5</th>
-            <th style={{ border: '1px solid black' }}>Actions</th>
+            <th style={{ border: '1px solid grey',color:'white' }}>Team ID</th>
+            <th style={{ border: '1px solid  grey',color:'white' }}>Team Name</th>
+            <th style={{ border: '1px solid  grey',color:'white' }}>Creativity</th>
+            <th style={{ border: '1px solid  grey',color:'white' }}>Presentation</th>
+            <th style={{ border: '1px solid grey',color:'white' }}>Innovation</th>
+            <th style={{ border: '1px solid  grey',color:'white' }}>Code Quality</th>
+            <th style={{ border: '1px solid  grey',color:'white' }}>Idea</th>
+            <th style={{ border: '1px solid  grey',color:'white' }}>Actions</th>
           </tr>
         </thead>
         <tbody>
           {teams.map(team => (
             <tr key={team.id}>
-              <td style={{ border: '1px solid black' }}>{team.id}</td>
-              <td style={{ border: '1px solid black' }}>{team.name}</td>
+              <td style={{ border: '1px solid grey',color:'whitesmoke' }}>{team.id}</td>
+              <td style={{ border: '1px solid grey',color:'whitesmoke' }}>{team.name}</td>
               {[0, 1, 2, 3, 4].map(paramIndex => (
-                <td key={paramIndex} style={{ border: '1px solid black' }}>
+                <td key={paramIndex} style={{ border: '1px solid grey' }}>
                   <input
                     type="number"
                     min="0"
@@ -79,7 +87,7 @@ const JudgeDashboard = () => {
                   />
                 </td>
               ))}
-              <td style={{ border: '1px solid black' }}>
+              <td style={{ border: '1px solid grey' }}>
                 <button
                   onClick={() => handleLockScore(team.id)}
                   disabled={lockedScores[team.id]}
@@ -98,7 +106,10 @@ const JudgeDashboard = () => {
         {submitted ? 'Scores Submitted' : 'Submit All Scores'}
       </button>
       </div>
-      {submitted && <Leaderboard />} 
+     
+      </div>
+      </div>
+      <ToastContainer />
    </>
   );
 };

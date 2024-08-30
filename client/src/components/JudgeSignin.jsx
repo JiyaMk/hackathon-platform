@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios'; 
 import { useNavigate } from 'react-router-dom';
+import backgroundImage from '../assets/image.png'
 
 const JudgeSignin = () => {
     const [email,setEmail]=useState('');
@@ -33,6 +34,15 @@ const JudgeSignin = () => {
       }
   };
   return (
+    <div style={{
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: 'cover', 
+      backgroundPosition: 'center', 
+      height: '100vh', 
+      display: 'flex', 
+      justifyContent: 'center',
+      alignItems: 'center'
+    }}>
     <div className='login-container'>
     <div className='login-form-position'>
     <Form>
@@ -56,6 +66,7 @@ const JudgeSignin = () => {
       </Button>
       {error && <p>{error}</p>}
     </Form>
+    </div>
     </div>
     </div>
   )

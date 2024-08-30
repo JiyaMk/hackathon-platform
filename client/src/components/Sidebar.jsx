@@ -8,42 +8,49 @@ import {
   CNavTitle,
   CSidebarBrand,
   CSidebarHeader,
-  CNavGroup,
-  CBadge,
 } from '@coreui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faPuzzlePiece, faCloudDownloadAlt, faLayerGroup } from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faUpload, faChartLine, faUsers, faChartBar, faCheckCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Sidebar = () => {
   return (
-    <CSidebar className="border-end" >
+    <CSidebar className="border-end">
       <CSidebarHeader className="border-bottom">
-        <CSidebarBrand><img src={appicon} style={{height:'60px', width:'80px'}} alt='logo'></img></CSidebarBrand>
+        <CSidebarBrand>
+          <img src={appicon} style={{ height: '60px', width: '80px' }} alt='logo' />
+        </CSidebarBrand>
       </CSidebarHeader>
       <CSidebarNav>
         <CNavTitle>Dashboard</CNavTitle>
 
         <CNavItem href="/admin-dashboard" style={{ display: 'flex', alignItems: 'center', padding: '0.5rem 1rem' }}>
-      <FontAwesomeIcon icon={faTachometerAlt} className="nav-icon" style={{ marginRight: '0.5rem', fontSize: '1.2rem' }} />
-        Upload CSV
-    </CNavItem>
-        <CNavItem href="/analytics-page" style={{ display: 'flex', alignItems: 'center', padding: '0.5rem 1rem' }} >
-          <FontAwesomeIcon icon={faTachometerAlt} className="nav-icon" /> Analytics
+          <FontAwesomeIcon icon={faUpload} className="nav-icon" style={{ marginRight: '0.5rem', fontSize: '1.2rem' }} />
+          Upload CSV
         </CNavItem>
 
-        <CNavItem href="/teams" style={{ display: 'flex', alignItems: 'center', padding: '0.5rem 1rem' }} >
-          <FontAwesomeIcon icon={faTachometerAlt} className="nav-icon" /> Teams
+        <CNavItem href="/analytics-page" style={{ display: 'flex', alignItems: 'center', padding: '0.5rem 1rem' }}>
+          <FontAwesomeIcon icon={faChartLine} className="nav-icon" style={{ marginRight: '0.5rem', fontSize: '1.2rem' }} />
+          Analytics
         </CNavItem>
 
-        <CNavItem href="/teams-list" style={{ display: 'flex', alignItems: 'center', padding: '0.5rem 1rem' }} >
-          <FontAwesomeIcon icon={faTachometerAlt} className="nav-icon" /> Teams Score
+        <CNavItem href="/teams" style={{ display: 'flex', alignItems: 'center', padding: '0.5rem 1rem' }}>
+          <FontAwesomeIcon icon={faUsers} className="nav-icon" style={{ marginRight: '0.5rem', fontSize: '1.2rem' }} />
+          Teams
         </CNavItem>
 
-        <CNavItem href="/validate-judge">
-          <FontAwesomeIcon icon={faCloudDownloadAlt} className="nav-icon" /> Validate Judge
+        <CNavItem href="/teams-list" style={{ display: 'flex', alignItems: 'center', padding: '0.5rem 1rem' }}>
+          <FontAwesomeIcon icon={faChartBar} className="nav-icon" style={{ marginRight: '0.5rem', fontSize: '1.2rem' }} />
+          Teams Score
         </CNavItem>
-        <CNavItem href="Home">
-          <FontAwesomeIcon icon={faLayerGroup} className="nav-icon" /> Logout
+
+        <CNavItem href="/validate-judge" style={{ display: 'flex', alignItems: 'center', padding: '0.5rem 1rem' }}>
+          <FontAwesomeIcon icon={faCheckCircle} className="nav-icon" style={{ marginRight: '0.5rem', fontSize: '1.2rem' }} />
+          Validate Judge
+        </CNavItem>
+
+        <CNavItem href="/logout" style={{ display: 'flex', alignItems: 'center', padding: '0.5rem 1rem' }}>
+          <FontAwesomeIcon icon={faSignOutAlt} className="nav-icon" style={{ marginRight: '0.5rem', fontSize: '1.2rem' }} />
+          Logout
         </CNavItem>
       </CSidebarNav>
     </CSidebar>

@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 const JudgeRegisterForm = () => {
     const [name,setName]=useState('');
     const [email,setEmail]=useState('');
@@ -41,6 +42,7 @@ const JudgeRegisterForm = () => {
     <div className='login-container'>
     <div className='login-form-position'>
     <Form>
+      <h1>Judge Sign in</h1>
       <Form.Group className="mb-3" controlId="formBasicEmail">
       <Form.Label>Name</Form.Label>
         <Form.Control type="text" placeholder="Enter name" value= {name} onChange={(e)=>setName(e.target.value)} />
@@ -55,10 +57,14 @@ const JudgeRegisterForm = () => {
         <Form.Label>Password</Form.Label>
         <Form.Control type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
       </Form.Group>
-      <Button variant="primary" type='button' onClick={handleRegister}>
+      <Button type='button' onClick={handleRegister}>
         Register
       </Button>
+     
     </Form>
+    <Form.Text style={{color:'grey'}}>
+        Already have an account?<Link to="/judge-signin">Login</Link>
+        </Form.Text>
     </div>
     </div>
   )

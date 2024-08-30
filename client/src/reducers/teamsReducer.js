@@ -42,7 +42,7 @@ const teamsReducer = (state = initialState, action) => {
       saveToLocalStorage(stateWithLockedScores);
       return stateWithLockedScores;
       
-    case 'SET_SUBMITTED': // Handle the action to update submitted state
+    case 'SET_SUBMITTED': 
       const stateWithSubmitted = {
         ...state,
         submitted: action.payload

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Sidebar from './Sidebar';
 
 const Teams = () => {
   const teams = useSelector((state) => state.teams.teams);
@@ -9,24 +10,27 @@ const Teams = () => {
   }
 
   return (
-    <div>
-      <h1>Team Names</h1>
+    <div className='main-container'>
+      <Sidebar/>
+      <div style={{width:'100%',padding:'4rem'}}>
+      <h1 style={{textAlign:'center', color:'white'}}>Team Names</h1>
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
-            <th style={{ border: '1px solid black' }}>No.</th>
-            <th style={{ border: '1px solid black' }}>Team Name</th>
+            <th style={{textAlign:'center', color:'white',border: '1px solid grey' }}>No.</th>
+            <th style={{textAlign:'center', color:'white',border: '1px solid grey' }}>Team Name</th>
           </tr>
         </thead>
         <tbody>
           {teams.map((team, index) => (
             <tr key={team.id}>
-              <td style={{ border: '1px solid black', textAlign: 'center' }}>{index + 1}</td>
-              <td style={{ border: '1px solid black' }}>{team.name}</td>
+              <td style={{textAlign:'center', color:'white',border: '1px solid grey' }}>{index + 1}</td>
+              <td style={{textAlign:'center', color:'white',border: '1px solid grey' }}>{team.name}</td>
             </tr>
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   );
 };
