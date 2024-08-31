@@ -1,0 +1,221 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Homediv */
+
+.Homep{
+    margin: 2rem auto;
+    text-align: center;
+    color: #ede6df;
+ }
+ .Homep p{
+     padding-top: 3rem;
+     margin: auto 4rem;
+ }
+ .Homep img{
+   margin-top: 1rem;
+   width:50%;
+ }
+ 
+ .Home{
+     
+     height: 100vh;
+ }
+ /* Navibar */
+ .Navhead{
+     font-size: larger;
+     font-weight: 600;
+ }
+ button {
+     background-color: #ffa500; 
+     color: white; 
+     padding: 10px 20px; 
+     border: none; 
+     font-size: 16px;
+     font-weight: bold; 
+     cursor: pointer; 
+     transition: background-color 0.3s ease; 
+   }
+   
+   button:hover {
+     background-color: #e69500; 
+   }
+ 
+   /* About */
+   .AboutContainer {
+     display: flex;
+     flex-wrap: wrap; /* Allow items to wrap if needed */
+   }
+   
+   .AboutPara, 
+   .AboutImg {
+     flex: 1;
+     width: 50%;
+     padding: 40px;
+   }
+   .AboutPara{
+     display: flex;
+     flex-direction: column;
+   justify-content: center; 
+   align-items: center; 
+   text-align: center; 
+   }
+   
+   .AboutImg img {
+     width: 100%;
+     height: auto;
+     object-fit: cover;
+   }
+   
+   .AboutContainer h1 {
+     text-align: center;
+     margin-bottom: 3rem;
+   }
+   
+   @media (max-width: 768px) {
+     .AboutContainer {
+       flex-direction: column;
+     }
+   
+     .AboutPara, 
+     .AboutImg {
+       width: 100%;
+       padding: 20px;
+     }
+   
+     .AboutContainer h1 {
+       font-size: 1.5rem;
+     }
+   }
+   
+   /* ChooseUser */
+ 
+   .ChooseUserContainer{
+     display:flex;
+     justify-content: space-around;
+     margin-top: 5rem;
+     flex-wrap: wrap;
+   }
+ .ChooseUserContainer h2{
+   text-align: center;
+ }
+ 
+ @media (max-width: 768px) {
+   .ChooseUserContainer {
+     flex-direction: column; 
+     align-items: center; 
+     margin-top: 3rem; 
+   }
+ 
+   .ChooseUserContainer h2 {
+     margin-bottom: 1rem; 
+   }
+ }
+ 
+ /* Regiater and SignIn forms */
+ .login-container {
+   width: 100vw;
+   height: 100vh;
+   position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+ 
+ /* In your global CSS file or CSS module */
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+ .login-form-position {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   width: 90%; /* Use a percentage for responsive width */
+   max-width: 400px; /* Set a max-width for larger screens */
+   padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.481);
+   color: black;
+   border-radius: 1rem;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+ }
+ 
+ @media (min-width: 768px) {
+   .login-form-position {
+     padding: 3rem;
+     left: auto;
+     top: auto;
+   }
+ }
+ 
+ @media (min-width: 1024px) {
+   .login-form-position {
+     padding: 4rem;
+     width: 70%;
+   }
+ }
+ 
+ .sidebar {
+   height: 100vh;          
+   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
+ }
+ .main-container {
+   display: flex;          
+   height: 100vh; 
+   background-color:#094044;     
+ }
+ 
+ .admin-dashboard-container {
+   flex: 1;                 
+   display: flex; 
+   flex-direction: column;  
+   gap: 10px;        
+   justify-content: center; 
+   align-items: center;     
+   
+ }
+ .admin-dashboard-container h2{
+   position: absolute;
+   top: 6rem;
+   color: #ede6df;
+ }
+ .csv-form {
+   display: flex;  
+   flex-direction: column;   
+   gap: 2rem;               
+   padding: 2rem;           
+   border-radius: 8px;      
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+   height: fit-content;    
+   position: absolute;
+   top: 10rem; 
+   background-color: white;
+  
+ }
+ 
+ .analytics-container {
+   flex: 1;         
+   padding: 2rem;        
+   overflow-y: auto;     
+   color: #f7f5f3;
+ }
+ 
+ h1{
+   font-family:'Times New Roman', Times, serif;
+   
+ }
+ 
+ 
