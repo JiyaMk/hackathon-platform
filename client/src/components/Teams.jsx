@@ -1,13 +1,23 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import { useSelector } from 'react-redux';
 import Sidebar from './Sidebar';
+import axios from 'axios';
 
 const Teams = () => {
-  const teams = useSelector((state) => state.teams.teams);
+  const [teams, setTeams] = useState([]);
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/team');
+        const teamsData = response.data;
+        setTeams(teamsData);
+      } catch (error) {
+        console.error('Error fetching teams:', error);
+      }
+    };
 
-  if (teams.length === 0) {
-    return <div>No teams yet</div>;
-  }
+    fetchTeams();
+  }, []);
 
   return (
     <div className='main-container'>

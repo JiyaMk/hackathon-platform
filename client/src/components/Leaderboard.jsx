@@ -1,22 +1,46 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 import PieChartComponent from './PieChartComponent'; // Update with correct path
 import BarChart from './BarChart'; // Update with correct path
 import './Leaderboard.css'; // Import the CSS file
+import axios from 'axios';
 
 const Leaderboard = () => {
-  const teams = useSelector((state) => state.teams.teams);
+  const [teams, setTeams] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const calculateTotalScore = (scores) => {
-    return scores.reduce((acc, score) => acc + score, 0);
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/team/locked');
+        console.log('Response Data:', response.data);
+        setTeams(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching teams:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchTeams();
+  }, []);
+
+  const parameters = ['creativity', 'presentation', 'innovation', 'codeQuality', 'idea'];
+
+  const calculateTotalScore = (team) => {
+    return parameters.reduce((total, param) => total + (team[param] || 0), 0);
   };
 
-  const parameters = ['Parameter 1', 'Parameter 2', 'Parameter 3', 'Parameter 4', 'Parameter 5'];
-  const leaderboard = [...teams].sort((a, b) => calculateTotalScore(b.scores) - calculateTotalScore(a.scores));
+  const leaderboard = [...teams].sort((a, b) => calculateTotalScore(b) - calculateTotalScore(a));
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="leaderboard-container">
       <h2 className="leaderboard-title">Leaderboard</h2>
+      {teams.length > 0 ? (
+        <>
       <table className="leaderboard-table">
         <thead>
           <tr>
@@ -30,7 +54,7 @@ const Leaderboard = () => {
             <tr key={team.id}>
               <td>{index + 1}</td>
               <td>{team.name}</td>
-              <td>{calculateTotalScore(team.scores)}</td>
+              <td>{calculateTotalScore(team)}</td>
             </tr>
           ))}
         </tbody>
@@ -51,6 +75,10 @@ const Leaderboard = () => {
       <div className="bar-chart-container">
         <BarChart teams={teams} />
       </div>
+        </>
+      ) : (
+        <div>Results Not Out</div>
+      )}
     </div>
   );
 };

@@ -6,9 +6,10 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Lege
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 const BarChart = ({ teams }) => {
- 
-  const calculateAverageScore = (scores) => {
-    return scores.reduce((acc, score) => acc + score, 0) / scores.length;
+  const calculateAverageScore = (team) => {
+    const parameters = ['creativity', 'presentation', 'innovation', 'codeQuality', 'idea'];
+    const totalScore = parameters.reduce((acc, param) => acc + team[param], 0);
+    return totalScore / parameters.length;
   };
 
  
@@ -16,7 +17,7 @@ const BarChart = ({ teams }) => {
     labels: teams.map(team => team.name),
     datasets: [{
       label: 'Average Score',
-      data: teams.map(team => calculateAverageScore(team.scores)),
+      data: teams.map(team => calculateAverageScore(team)),
       backgroundColor: '#91d4a5', 
       borderColor: 'white',
       borderWidth: 1

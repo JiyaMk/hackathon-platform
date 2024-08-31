@@ -1,22 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addScore, lockScore, submitScores } from '../actions/scoreActions';
-import Leaderboard from './Leaderboard';
 import './JudgeDashboard.css';
 import JudgeSidebar from './judgeSidebar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const JudgeDashboard = () => {
-  const teams = useSelector((state) => state.teams.teams);
-  const dispatch = useDispatch();
+  const [teams, setTeams] = useState([]);
   const [lockedScores, setLockedScores] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
+  const parameters = ['creativity', 'presentation', 'innovation', 'codeQuality', 'idea'];
+
   useEffect(() => {
-    const savedLockedScores = JSON.parse(localStorage.getItem('lockedScores')) || {};
+    const fetchTeams = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/team');
+        const teamsData = response.data;
+
+        const savedLockedScores = JSON.parse(localStorage.getItem('lockedScores')) || {};
+        const updatedLockedScores = {};
+        teamsData.forEach(team => {
+          updatedLockedScores[team.id] = savedLockedScores[team.id] || team.locked;
+        });
+
+        setTeams(teamsData);
+        setLockedScores(updatedLockedScores);
+      } catch (error) {
+        console.error('Error fetching teams:', error);
+      }
+    };
+    fetchTeams();
+  }, []);
+
+  useEffect(() => {
     const savedSubmitted = JSON.parse(localStorage.getItem('submitted')) || false;
-    setLockedScores(savedLockedScores);
     setSubmitted(savedSubmitted);
   }, []);
 
@@ -25,26 +43,47 @@ const JudgeDashboard = () => {
     localStorage.setItem('submitted', JSON.stringify(submitted));
   }, [lockedScores, submitted]);
 
-  const handleScoreChange = (teamId, paramIndex, value) => {
-    const scores = teams.find(team => team.id === teamId)?.scores || [0, 0, 0, 0, 0];
-    scores[paramIndex] = parseFloat(value) || 0;
-    dispatch(addScore(teamId, scores));
+  const handleScoreChange = (teamId, field, value) => {
+    setTeams((prevTeams) =>
+      prevTeams.map((team) =>
+        team.id === teamId
+          ? {
+              ...team,
+              [field]: parseFloat(value) || 0,
+            }
+          : team
+      )
+    );
   };
 
-  const handleLockScore = (teamId) => {
-    const scores = teams.find(team => team.id === teamId)?.scores || [0, 0, 0, 0, 0];
-    setLockedScores((prev) => ({
-      ...prev,
-      [teamId]: true,
-    }));
-    dispatch(lockScore(teamId, scores));
+  const handleLockScore = async (teamId) => {
+    const team = teams.find((team) => team.id === teamId);
+    const { creativity, presentation, innovation, codeQuality, idea } = team;
+    try {
+      await axios.post(
+        `http://localhost:4000/team/lock/${team._id}`,
+        { creativity, presentation, innovation, codeQuality, idea },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      setLockedScores((prev) => ({
+        ...prev,
+        [teamId]: true,
+      }));
+    } catch (error) {
+      console.error('Error locking score:', error);
+      toast.error('Error locking score');
+    }
   };
 
-  const handleSubmitScores = () => {
-    setSubmitted(true);
-    toast.success("Scores uploaded successfully!");
-    dispatch(submitScores()); 
-   
+  const handleSubmitScores = async () => {
+    try {
+      const response = await axios.post('http://localhost:4000/team/submit');
+      setSubmitted(true);
+      toast.success(response.data.message);
+    } catch (error) {
+      console.error('Error submitting scores:', error);
+      toast.error('Error submitting scores');
+    }
   };
 
   return (
@@ -74,34 +113,34 @@ const JudgeDashboard = () => {
             <tr key={team.id}>
               <td style={{ border: '1px solid grey',color:'whitesmoke' }}>{team.id}</td>
               <td style={{ border: '1px solid grey',color:'whitesmoke' }}>{team.name}</td>
-              {[0, 1, 2, 3, 4].map(paramIndex => (
-                <td key={paramIndex} style={{ border: '1px solid grey' }}>
-                  <input
-                    type="number"
-                    min="0"
-                    max="10"
-                    step="0.1"
-                    defaultValue={team.scores ? team.scores[paramIndex] : ''}
-                    onChange={(e) => handleScoreChange(team.id, paramIndex, e.target.value)}
-                    disabled={lockedScores[team.id]}
-                  />
-                </td>
-              ))}
-              <td style={{ border: '1px solid grey' }}>
-                <button
-                  onClick={() => handleLockScore(team.id)}
-                  disabled={lockedScores[team.id]}
-                >
-                  {lockedScores[team.id] ? 'Score Locked' : 'Lock Score'}
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      </div>
-      </div>
-      <div className="button-container">
+                      {parameters.map((param) => (
+                        <td key={param} style={{ border: '1px solid grey' }}>
+                          <input
+                            type="number"
+                            min="0"
+                            max="10"
+                            step="0.1"
+                            value={team[param] || ''}
+                            onChange={(e) => handleScoreChange(team.id, param, e.target.value)}
+                            disabled={lockedScores[team.id]}
+                          />
+                        </td>
+                      ))}
+                      <td style={{ border: '1px solid grey' }}>
+                        <button
+                          onClick={() => handleLockScore(team.id)}
+                          disabled={lockedScores[team.id]}
+                        >
+                          {lockedScores[team.id] ? 'Score Locked' : 'Lock Score'}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div className="button-container">
       <button onClick={handleSubmitScores} disabled={submitted || !teams.every(team => lockedScores[team.id])}>
         {submitted ? 'Scores Submitted' : 'Submit All Scores'}
       </button>
@@ -110,8 +149,9 @@ const JudgeDashboard = () => {
       </div>
       </div>
       <ToastContainer />
-   </>
+    </>
   );
 };
 
 export default JudgeDashboard;
+
