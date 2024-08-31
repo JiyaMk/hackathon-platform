@@ -19,4 +19,7 @@ app.use('/auth', judgeAuth);
 const adminAuth = require('./routes/adminAuth');
 app.use('/admin', adminAuth);
 
+const team = require('./routes/team');
+app.use('/team', team);
+
 module.exports = app;

@@ -1,9 +1,31 @@
-import React from 'react';
+import React ,{ useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Sidebar from './Sidebar';
+import axios from 'axios';
 
 const TeamList = () => {
-  const teams = useSelector((state) => state.teams.teams);
+  const [teams, setTeams] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLockedTeams = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/team/locked');
+        console.log(response.data);
+        setTeams(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching locked teams:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchLockedTeams();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   if (teams.length === 0) {
     return <div>No scores yet</div>;
@@ -27,17 +49,31 @@ const TeamList = () => {
           </tr>
         </thead>
         <tbody>
-          {teams.map(team => (
+        {teams.map(team => (
             <tr key={team.id}>
-              <td style={{  border: '1px solid grey', color:'white' }}>{team.name}</td>
-              {team.scores ? team.scores.map((score, index) => (
-                <td key={index} style={{ border: '1px solid grey', color:'white' }}>{score}</td>
-              )) : [0, 0, 0, 0, 0].map((_, index) => (
-                <td key={index} style={{  border: '1px solid grey', color:'white' }}>0</td>
-              ))}
+              <td style={{ border: '1px solid grey', color:'white' }}>{team.name}</td>
+              <td style={{ border: '1px solid grey', color:'white' }}>
+                {team.creativity || 0}
+              </td>
+              <td style={{ border: '1px solid grey', color:'white' }}>
+                {team.presentation || 0}
+              </td>
+              <td style={{ border: '1px solid grey', color:'white' }}>
+                {team.innovation || 0}
+              </td>
+              <td style={{ border: '1px solid grey', color:'white' }}>
+                {team.codeQuality || 0}
+              </td>
+              <td style={{ border: '1px solid grey', color:'white' }}>
+                {team.idea || 0}
+              </td>
               <td style={{ border: '1px solid grey', color:'white'}}>
-                {team.scores && team.scores.length > 0 ? 
-                  (team.scores.reduce((acc, score) => acc + score, 0) / team.scores.length).toFixed(1)
+                {team ?
+                  ((team.creativity || 0) + 
+                   (team.presentation || 0) + 
+                   (team.innovation || 0) + 
+                   (team.codeQuality || 0) + 
+                   (team.idea || 0)) / 5
                   : '0'}
               </td>
             </tr>

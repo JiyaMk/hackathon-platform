@@ -10,10 +10,10 @@ const AdminDashboard = () => {
   const [file, setFile] = useState(null);
   const dispatch = useDispatch();
 
-  const handleFileUpload = () => {
+  const handleFileUpload = async () => {
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = async (e) => {
         const text = e.target.result;
         const lines = text.split('\n').filter(line => line.trim() !== ''); 
 
@@ -26,9 +26,24 @@ const AdminDashboard = () => {
               name: teamName.trim()
             };
           });
-
-          dispatch(setTeams(teams));
-          toast.success("File uploaded successfully!");
+          try {
+            const response = await fetch('http://localhost:4000/team/upload', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ teams })
+            });
+  
+            const result = await response.json();
+            if (response.ok) {
+              toast.success(result.message);
+            } else {
+              toast.error(result.error || "Failed to upload teams.");
+            }
+          } catch (error) {
+            toast.error("Network error. Please try again later.");
+          }
         } else {
           toast.error("File is empty or not properly formatted.");
         }

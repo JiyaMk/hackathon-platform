@@ -4,7 +4,7 @@ import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 const PieChartComponent = ({ data, parameterIndex, parameterName }) => {
   const pieData = data.map((team) => ({
     name: team.name,
-    value: team.scores[parameterIndex],
+    value: team[parameterName],
   }));
 
   const COLORS = ['#91d4a5', '#49d3d3', '#d1e7c2', '#b4d4b6']; 

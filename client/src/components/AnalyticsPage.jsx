@@ -1,10 +1,31 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 import Leaderboard from './Leaderboard';
 import Sidebar from './Sidebar';
+import axios from 'axios';
 
 const AnalyticsPage = () => {
-  const submitted = useSelector((state) => state.teams.submitted);
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkSubmissionStatus = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/team/status'); 
+        console.log(response.data.allLocked);
+        setSubmitted(response.data.allLocked);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching submission status:', error);
+        setLoading(false);
+      }
+    };
+
+    checkSubmissionStatus();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className='main-container'>
