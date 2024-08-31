@@ -65,7 +65,7 @@ const Leaderboard = () => {
         <div className="pie-chart-grid">
           {parameters.map((param, index) => (
             <div key={index} className="pie-chart-item">
-              <h2>{param}</h2>
+              <h2>Parameter {index+1}</h2>
               <PieChartComponent data={leaderboard} parameterIndex={index} parameterName={param} />
             </div>
           ))}
