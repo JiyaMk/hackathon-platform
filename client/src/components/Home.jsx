@@ -6,22 +6,23 @@ import Navibar from './Navibar.jsx';
 import Homediv from './Homediv.jsx';
 import About from './About.jsx';
 import ContactForm from './ContactForm.jsx';
+import { AuroraBackground } from './ui/Aurora-background';
+import { FloatingDockDemo } from './FloatingDockDemo.jsx';
+
 const Home = () => {
   return (
     <>
+   
     <div className='Home'>
     <section id="home">
        <Navibar/>
        </section>
+       
        <Homediv/>
       
-       <section id="about">
-       <About/>
-       </section>
-       <section id="contact">
-       <ContactForm/>
-       </section>
+     
        </div>
+     
     </>
   )
 };
