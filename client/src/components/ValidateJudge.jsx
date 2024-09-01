@@ -3,14 +3,14 @@ import JudgeList from './JudgeList'
 import Sidebar from './Sidebar'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-
+import { url } from '../assets/asset';
 const ValidateJudge = () => {
   const [judges, setJudges] = useState([]);
 
   useEffect(() => {
     const fetchJudges = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/admin/get-pendingJudges',{withCredentials: true}); 
+        const response = await axios.get(`${url}/admin/get-pendingJudges`,{withCredentials: true}); 
         const data = await response.data;
         setJudges(data.data);
       } catch (error) {

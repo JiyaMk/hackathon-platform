@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import backgroundImage from '../assets/image.png';
-
+import { url } from '../assets/asset';
 const JudgeSignin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,7 +16,7 @@ const JudgeSignin = () => {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:4000/auth/judge/login', {
+      const response = await axios.post(`${url}/auth/judge/login`, {
         email,
         password,
       });

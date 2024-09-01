@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidebar from './Sidebar';
-
+import { url } from '../assets/asset';
 const TeamList = () => {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -9,7 +9,7 @@ const TeamList = () => {
   useEffect(() => {
     const fetchLockedTeams = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/team/locked');
+        const response = await axios.get(`${url}/team/locked`);
         console.log(response.data);
         setTeams(response.data);
         setLoading(false);

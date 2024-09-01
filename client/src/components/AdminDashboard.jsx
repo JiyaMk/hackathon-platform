@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AiOutlineUpload } from 'react-icons/ai';
 import Sidebar from './Sidebar';
-
+import { url } from '../assets/asset';
 const AdminDashboard = () => {
   const [file, setFile] = useState(null);
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const AdminDashboard = () => {
             };
           });
           try {
-            const response = await fetch('http://localhost:4000/team/upload', {
+            const response = await fetch(`${url}/team/upload`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'

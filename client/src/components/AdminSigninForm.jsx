@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { url } from '../assets/asset';
 
 const AdminSigninForm = () => {
   const [email, setEmail] = useState('');
@@ -12,7 +13,7 @@ const AdminSigninForm = () => {
     event.preventDefault();
     console.log('Signing in with email:', email, 'and password:', password);
     try {
-      const response = await axios.post('http://localhost:4000/admin/login', { email, password });
+      const response = await axios.post(`${url}/admin/login`, { email, password });
       if (response.data.message === 'Admin login successful') {
         localStorage.setItem('adminToken', response.data.token);
         navigate('/admin-dashboard');

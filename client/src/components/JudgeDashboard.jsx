@@ -4,6 +4,7 @@ import JudgeSidebar from './judgeSidebar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { url } from '../assets/asset';
 
 const JudgeDashboard = () => {
   const [teams, setTeams] = useState([]);
@@ -15,7 +16,7 @@ const JudgeDashboard = () => {
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/team');
+        const response = await axios.get(`${url}/team`);
         const teamsData = response.data;
 
         const savedLockedScores = JSON.parse(localStorage.getItem('lockedScores')) || {};
@@ -61,7 +62,7 @@ const JudgeDashboard = () => {
     const { creativity, presentation, innovation, codeQuality, idea } = team;
     try {
       await axios.post(
-        `http://localhost:4000/team/lock/${team._id}`,
+        `${url}/team/lock/${team._id}`,
         { creativity, presentation, innovation, codeQuality, idea },
         { headers: { 'Content-Type': 'application/json' } }
       );
@@ -77,7 +78,7 @@ const JudgeDashboard = () => {
 
   const handleSubmitScores = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/team/submit');
+      const response = await axios.post(`${url}/team/submit`);
       setSubmitted(true);
       toast.success(response.data.message);
     } catch (error) {

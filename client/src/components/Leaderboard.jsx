@@ -3,7 +3,7 @@ import PieChartComponent from './PieChartComponent'; // Update with correct path
 import BarChart from './BarChart'; // Update with correct path
 import './Leaderboard.css'; // Import the CSS file
 import axios from 'axios';
-
+import { url } from '../assets/asset';
 const Leaderboard = () => {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,7 +11,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/team/locked');
+        const response = await axios.get(`${url}/team/locked`);
         console.log('Response Data:', response.data);
         setTeams(response.data);
         setLoading(false);

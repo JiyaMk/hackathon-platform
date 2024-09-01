@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Leaderboard from './Leaderboard';
 import Sidebar from './Sidebar';
+import { url } from '../assets/asset';
 import axios from 'axios';
 
 const AnalyticsPage = () => {
@@ -10,7 +11,7 @@ const AnalyticsPage = () => {
   useEffect(() => {
     const checkSubmissionStatus = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/team/status'); 
+        const response = await axios.get(`${url}/team/status`); 
         console.log(response.data.allLocked);
         setSubmitted(response.data.allLocked);
         setLoading(false);

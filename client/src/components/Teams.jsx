@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Sidebar from './Sidebar';
-
+import { url } from '../assets/asset';
 const Teams = () => {
   const [teams, setTeams] = useState([]);
 
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/team');
+        const response = await axios.get(`${url}/team`);
         const teamsData = response.data;
         setTeams(teamsData);
       } catch (error) {

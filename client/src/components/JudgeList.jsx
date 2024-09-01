@@ -6,7 +6,7 @@ import axios from 'axios';
 const JudgeList = ({ id, name, email, onValidate }) => {
   const handleValidate = async () => {
     try {
-      const response = await axios.post(`http://localhost:4000/admin/approve-judge/${id}`);
+      const response = await axios.post(`${url}/admin/approve-judge/${id}`);
       if (response.status === 200) {
         onValidate(id); 
         alert(`${name} has been validated successfully.`);

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { url } from '../assets/asset';
 
 const JudgeRegisterForm = () => {
   const [name, setName] = useState('');
@@ -14,7 +15,7 @@ const JudgeRegisterForm = () => {
     setLoading(true); 
     setError('');
     try {
-      const response = await axios.post('http://localhost:4000/auth/judge/signup', {
+      const response = await axios.post(`${url}/auth/judge/signup`, {
         name,
         email,
         password,
