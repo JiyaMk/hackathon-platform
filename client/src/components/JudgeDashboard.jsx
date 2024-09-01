@@ -10,7 +10,6 @@ const JudgeDashboard = () => {
   const [teams, setTeams] = useState([]);
   const [lockedScores, setLockedScores] = useState({});
   const [submitted, setSubmitted] = useState(false);
-  const [allLocked, setAllLocked] = useState(false);
 
   const parameters = ['creativity', 'presentation', 'innovation', 'codeQuality', 'idea'];
 
@@ -36,23 +35,14 @@ const JudgeDashboard = () => {
   }, []);
 
   useEffect(() => {
+    const savedSubmitted = JSON.parse(localStorage.getItem('submitted')) || false;
+    setSubmitted(savedSubmitted);
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem('lockedScores', JSON.stringify(lockedScores));
     localStorage.setItem('submitted', JSON.stringify(submitted));
   }, [lockedScores, submitted]);
-
-  useEffect(() => {
-    const checkAllLocked = async () => {
-      try {
-        const response = await axios.get(`${url}/team/status`);
-        setSubmitted(true);
-        setAllLocked(response.data.allLocked);
-      } catch (error) {
-        console.error('Error checking lock status:', error);
-      }
-    };
-
-    checkAllLocked();
-  }, [lockedScores]);
 
   const handleScoreChange = (teamId, field, value) => {
     setTeams((prevTeams) =>
@@ -89,6 +79,7 @@ const JudgeDashboard = () => {
   const handleSubmitScores = async () => {
     try {
       const response = await axios.post(`${url}/team/submit`);
+      setSubmitted(true);
       toast.success(response.data.message);
     } catch (error) {
       console.error('Error submitting scores:', error);
@@ -150,13 +141,9 @@ const JudgeDashboard = () => {
             </table>
           </div>
           <div className="button-container mt-6 flex justify-center">
-            <button
-              onClick={handleSubmitScores}
-              disabled={submitted || !allLocked}
-              className={`px-6 py-3 ${submitted ? 'bg-gray-500' : 'bg-blue-600'} text-white rounded-md hover:${submitted ? 'bg-gray-600' : 'bg-blue-700'}`}
-            >
-              {submitted ? 'Scores Submitted' : 'Submit All Scores'}
-            </button>
+          <button onClick={handleSubmitScores} disabled={submitted || !teams.every(team => lockedScores[team.id])}>
+        {submitted ? 'Scores Submitted' : 'Submit All Scores'}
+      </button>
           </div>
         </div>
       </div>
