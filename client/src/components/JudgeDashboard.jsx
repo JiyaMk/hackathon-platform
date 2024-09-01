@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './JudgeDashboard.css';
-import JudgeSidebar from './judgeSidebar.jsx';
+import JudgeSidebar from './JudgeSidebar.jsx';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
