@@ -1,10 +1,10 @@
-import React,{useEffect, useState} from 'react';
-import { useSelector } from 'react-redux';
-import Sidebar from './Sidebar';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Sidebar from './Sidebar';
 
 const Teams = () => {
   const [teams, setTeams] = useState([]);
+
   useEffect(() => {
     const fetchTeams = async () => {
       try {
@@ -20,30 +20,41 @@ const Teams = () => {
   }, []);
 
   return (
-    <div className='main-container'>
-      <Sidebar/>
-      <div style={{width:'100%',padding:'4rem'}}>
-      <h1 style={{textAlign:'center', color:'white'}}>Team Names</h1>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr>
-            <th style={{textAlign:'center', color:'white',border: '1px solid grey' }}>No.</th>
-            <th style={{textAlign:'center', color:'white',border: '1px solid grey' }}>Team Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {teams.map((team, index) => (
-            <tr key={team.id}>
-              <td style={{textAlign:'center', color:'white',border: '1px solid grey' }}>{index + 1}</td>
-              <td style={{textAlign:'center', color:'white',border: '1px solid grey' }}>{team.name}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <div className='flex main-container'>
+      <Sidebar />
+      <div className='flex-1 p-10 bg-800'>
+        <h1 className='text-3xl font-bold text-white mb-8 text-center'>Team Names</h1>
+        <div className='overflow-x-auto' style={{border: '1px solid #d1d5db',
+              boxShadow: '0 0 15px rgba(59, 130, 246, 0.9)',}}>
+          <table
+            style={{
+              minWidth: '100%',
+              backgroundColor: 'white',
+              borderRadius: '0.5rem',
+            
+               //
+            }}
+            className='rounded-lg border border-gray-300'
+          >
+            <thead className='bg-gray-900 text-white' >
+              <tr>
+                <th style={{ padding: '1rem', borderBottom: '1px solid #d1d5db', textAlign: 'center' }}>No.</th>
+                <th style={{ padding: '1rem', borderBottom: '1px solid #d1d5db', textAlign: 'center' }}>Team Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {teams.map((team, index) => (
+                <tr key={team.id} style={{ backgroundColor: '#ffffff', '&:hover': { backgroundColor: '#f3f4f6' } }}>
+                  <td style={{ padding: '1rem', borderBottom: '1px solid #d1d5db', textAlign: 'center' }}>{index + 1}</td>
+                  <td style={{ padding: '1rem', borderBottom: '1px solid #d1d5db', textAlign: 'center' }}>{team.name}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default Teams;
-

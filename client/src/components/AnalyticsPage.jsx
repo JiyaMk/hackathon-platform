@@ -31,7 +31,7 @@ const AnalyticsPage = () => {
     <div className='main-container'>
       <Sidebar/>
       <div className='analytics-container'>
-      <h1 style={{textAlign:'center',color:'whitesmoke'}}>Analytics Page</h1>
+      <h1 style={{textAlign:'center',color:'whitesmoke', fontSize:'2rem'}}>Analytics Page</h1>
       {submitted ? (
         <Leaderboard />
       ) : (

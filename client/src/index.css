@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 /* Homediv */
+/* index.css or App.css */
+body {
+  font-family:  sans-serif;
+}
 
 .Homep{
     margin: 2rem auto;
@@ -175,17 +179,14 @@
  .main-container {
    display: flex;          
    height: 100vh; 
-   background-color:#094044;     
+   background-color:rgb(2,3,23);     
  }
  
  .admin-dashboard-container {
-   flex: 1;                 
-   display: flex; 
-   flex-direction: column;  
+  
    gap: 10px;        
    justify-content: center; 
-   align-items: center;     
-   
+   align-items: center;  
  }
  .admin-dashboard-container h2{
    position: absolute;

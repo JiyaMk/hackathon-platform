@@ -22,7 +22,7 @@ const JudgeList = ({ id, name, email, onValidate }) => {
       <Card>
         <Card.Body>
           <Card.Title>{name}</Card.Title>
-          <Card.Text>{email}</Card.Text>
+          <Card.Text style={{margin:'10px auto'}}>{email}</Card.Text>
           <Button variant="primary" onClick={handleValidate}>Validate</Button>
         </Card.Body>
       </Card>

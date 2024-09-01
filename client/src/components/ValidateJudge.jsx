@@ -30,7 +30,7 @@ const ValidateJudge = () => {
        <Sidebar/>
        <div className='analytics-container'>
 
-        <h1 style={{textAlign:'center'}}>Validate Judge</h1>
+        <h1 className='text-3xl font-bold text-white mb-8 text-center' style={{textAlign:'center'}}>Validate Judge</h1>
       
 
        {judges.map(judge => (
