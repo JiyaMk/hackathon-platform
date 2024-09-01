@@ -10,7 +10,7 @@ const ValidateJudge = () => {
   useEffect(() => {
     const fetchJudges = async () => {
       try {
-        const response = await axios.get(`${url}/admin/get-pendingJudges`,{withCredentials: true}); 
+        const response = await axios.get(`${url}/admin/get-pendingJudges`); 
         const data = await response.data;
         setJudges(data.data);
       } catch (error) {
