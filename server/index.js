@@ -1,9 +1,11 @@
 const app = require('./app');
 const mongoose = require("mongoose");
-
+require('dotenv').config({ path: './config/config.env' });
 const connectDatabase = ()=>{
     mongoose
-    .connect('mongodb://127.0.0.1:27017/hackScore')
+    .connect(process.env.MONGO_URL, { 
+       
+    })
     .then((con)=>{
         console.log("Database connected successfully");
     })
