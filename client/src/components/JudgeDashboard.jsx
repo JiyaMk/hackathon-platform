@@ -4,6 +4,7 @@ import JudgeSidebar from './judgeSidebar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { url } from '../assets/asset';
 
 const JudgeDashboard = () => {
   const [teams, setTeams] = useState([]);
