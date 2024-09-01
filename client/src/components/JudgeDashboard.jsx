@@ -10,6 +10,7 @@ const JudgeDashboard = () => {
   const [teams, setTeams] = useState([]);
   const [lockedScores, setLockedScores] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [allLocked, setAllLocked] = useState(false);
 
   const parameters = ['creativity', 'presentation', 'innovation', 'codeQuality', 'idea'];
 
@@ -43,6 +44,19 @@ const JudgeDashboard = () => {
     localStorage.setItem('lockedScores', JSON.stringify(lockedScores));
     localStorage.setItem('submitted', JSON.stringify(submitted));
   }, [lockedScores, submitted]);
+
+  useEffect(() => {
+    const checkAllLocked = async () => {
+      try {
+        const response = await axios.get(`${url}/team/status`);
+        setAllLocked(response.data.allLocked);
+      } catch (error) {
+        console.error('Error checking lock status:', error);
+      }
+    };
+
+    checkAllLocked();
+  }, [lockedScores]);
 
   const handleScoreChange = (teamId, field, value) => {
     setTeams((prevTeams) =>
@@ -143,7 +157,7 @@ const JudgeDashboard = () => {
           <div className="button-container mt-6 flex justify-center">
             <button
               onClick={handleSubmitScores}
-              disabled={submitted || !teams.every(team => lockedScores[team.id])}
+              disabled={submitted || !allLocked}
               className={`px-6 py-3 ${submitted ? 'bg-gray-500' : 'bg-blue-600'} text-white rounded-md hover:${submitted ? 'bg-gray-600' : 'bg-blue-700'}`}
             >
               {submitted ? 'Scores Submitted' : 'Submit All Scores'}
@@ -157,3 +171,4 @@ const JudgeDashboard = () => {
 };
 
 export default JudgeDashboard;
+
