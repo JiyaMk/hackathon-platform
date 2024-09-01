@@ -2,6 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import axios from 'axios';
+import { url } from '../assets/asset';
 
 const JudgeList = ({ id, name, email, onValidate }) => {
   const handleValidate = async () => {
