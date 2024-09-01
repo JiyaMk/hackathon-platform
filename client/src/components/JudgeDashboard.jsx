@@ -36,11 +36,6 @@ const JudgeDashboard = () => {
   }, []);
 
   useEffect(() => {
-    const savedSubmitted = JSON.parse(localStorage.getItem('submitted')) || false;
-    setSubmitted(savedSubmitted);
-  }, []);
-
-  useEffect(() => {
     localStorage.setItem('lockedScores', JSON.stringify(lockedScores));
     localStorage.setItem('submitted', JSON.stringify(submitted));
   }, [lockedScores, submitted]);
@@ -49,6 +44,7 @@ const JudgeDashboard = () => {
     const checkAllLocked = async () => {
       try {
         const response = await axios.get(`${url}/team/status`);
+        setSubmitted(true);
         setAllLocked(response.data.allLocked);
       } catch (error) {
         console.error('Error checking lock status:', error);
@@ -93,7 +89,6 @@ const JudgeDashboard = () => {
   const handleSubmitScores = async () => {
     try {
       const response = await axios.post(`${url}/team/submit`);
-      setSubmitted(true);
       toast.success(response.data.message);
     } catch (error) {
       console.error('Error submitting scores:', error);
