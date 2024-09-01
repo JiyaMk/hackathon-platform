@@ -143,7 +143,7 @@ const JudgeDashboard = () => {
           <div className="button-container mt-6 flex justify-center">
             <button
               onClick={handleSubmitScores}
-              disabled={submitted || !teams.every(team => lockedScores[team.id])}
+              // disabled={submitted || !teams.every(team => lockedScores[team.id])}
               className={`px-6 py-3 ${submitted ? 'bg-gray-500' : 'bg-blue-600'} text-white rounded-md hover:${submitted ? 'bg-gray-600' : 'bg-blue-700'}`}
             >
               {submitted ? 'Scores Submitted' : 'Submit All Scores'}
