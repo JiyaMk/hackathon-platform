@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './JudgeDashboard.css';
-import JudgeSidebar from './judgeSidebar';
+import JudgeSidebar from './JudgeSidebar.jsx';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
@@ -89,65 +89,67 @@ const JudgeDashboard = () => {
 
   return (
     <>
-    <div className='main-container'>
-      <JudgeSidebar/>
-      <div style={{width:'100%',padding:'4rem'}}>
-    <div className='table-container'>
-      
-      <h1 style={{textAlign:'center',color:'whitesmoke'}}>Judge Dashboard</h1>
-      <div>
-      <table style={{ width: '100%', borderCollapse: 'collapse', margin: '1rem' }}>
-        <thead>
-          <tr>
-            <th style={{ border: '1px solid grey',color:'white' }}>Team ID</th>
-            <th style={{ border: '1px solid  grey',color:'white' }}>Team Name</th>
-            <th style={{ border: '1px solid  grey',color:'white' }}>Creativity</th>
-            <th style={{ border: '1px solid  grey',color:'white' }}>Presentation</th>
-            <th style={{ border: '1px solid grey',color:'white' }}>Innovation</th>
-            <th style={{ border: '1px solid  grey',color:'white' }}>Code Quality</th>
-            <th style={{ border: '1px solid  grey',color:'white' }}>Idea</th>
-            <th style={{ border: '1px solid  grey',color:'white' }}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {teams.map(team => (
-            <tr key={team.id}>
-              <td style={{ border: '1px solid grey',color:'whitesmoke' }}>{team.id}</td>
-              <td style={{ border: '1px solid grey',color:'whitesmoke' }}>{team.name}</td>
-                      {parameters.map((param) => (
-                        <td key={param} style={{ border: '1px solid grey' }}>
-                          <input
-                            type="number"
-                            min="0"
-                            max="10"
-                            step="0.1"
-                            value={team[param] || ''}
-                            onChange={(e) => handleScoreChange(team.id, param, e.target.value)}
-                            disabled={lockedScores[team.id]}
-                          />
-                        </td>
-                      ))}
-                      <td style={{ border: '1px solid grey' }}>
-                        <button
-                          onClick={() => handleLockScore(team.id)}
+      <div className='flex main-container'>
+        <JudgeSidebar />
+        <div className='flex-1 p-8 bg-800'>
+          <h1 className='text-3xl font-bold text-white mb-6 text-center'>Judge Dashboard</h1>
+          <div className='overflow-x-auto'>
+            <table className='min-w-full bg rounded-lg shadow-lg border border-gray-300 '>
+              <thead className='bg-gray-900 text-white'>
+                <tr>
+                  <th className='p-4 border-b border-white-300 text-center'>Team ID</th>
+                  <th className='p-4 border-b border-white-300 text-center'>Team Name</th>
+                  <th className='p-4 border-b border-white-300 text-center'>Creativity</th>
+                  <th className='p-4 border-b border-white-300 text-center'>Presentation</th>
+                  <th className='p-4 border-b border-white-300 text-center'>Innovation</th>
+                  <th className='p-4 border-b border-white-300 text-center'>Code Quality</th>
+                  <th className='p-4 border-b border-white-300 text-center'>Idea</th>
+                  <th className='p-4 border-b border-white-300 text-center'>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {teams.map(team => (
+                  <tr key={team.id} className='text-white-700'>
+                    <td className='p-4 border-b border-white-300 text-center text-white'>{team.id}</td>
+                    <td className='p-4 border-b border-white-300 text-center text-white'>{team.name}</td>
+                    {parameters.map((param) => (
+                      <td key={param} className='p-4 border-b border-gray-300 text-center'>
+                        <input
+                          type="number"
+                          min="0"
+                          max="10"
+                          step="0.1"
+                          value={team[param] || ''}
+                          onChange={(e) => handleScoreChange(team.id, param, e.target.value)}
                           disabled={lockedScores[team.id]}
-                        >
-                          {lockedScores[team.id] ? 'Score Locked' : 'Lock Score'}
-                        </button>
+                          className='w-full px-2 py-1 border border-gray-300 rounded-md'
+                        />
                       </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                    ))}
+                    <td className='p-4 border-b border-gray-300 text-center'>
+                      <button
+                        onClick={() => handleLockScore(team.id)}
+                        disabled={lockedScores[team.id]}
+                        className='px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700'
+                      >
+                        {lockedScores[team.id] ? 'Score Locked' : 'Lock Score'}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-          <div className="button-container">
-      <button onClick={handleSubmitScores} disabled={submitted || !teams.every(team => lockedScores[team.id])}>
-        {submitted ? 'Scores Submitted' : 'Submit All Scores'}
-      </button>
-      </div>
-     
-      </div>
+          <div className="button-container mt-6 flex justify-center">
+            <button
+              onClick={handleSubmitScores}
+              disabled={submitted || !teams.every(team => lockedScores[team.id])}
+              className={`px-6 py-3 ${submitted ? 'bg-gray-500' : 'bg-blue-600'} text-white rounded-md hover:${submitted ? 'bg-gray-600' : 'bg-blue-700'}`}
+            >
+              {submitted ? 'Scores Submitted' : 'Submit All Scores'}
+            </button>
+          </div>
+        </div>
       </div>
       <ToastContainer />
     </>
