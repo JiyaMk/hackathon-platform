@@ -7,7 +7,7 @@ if(process.env.NODE_ENV !== "production"){
 }
 
 app.use(cors({
-    origin: 'https://hackathon-score-platform-frontend.onrender.com/',
+    origin: 'https://hackathon-score-platform-frontend.onrender.com',
     credentials: true,
   }));
 app.use(express.json());
